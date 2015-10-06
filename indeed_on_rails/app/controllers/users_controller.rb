@@ -18,6 +18,7 @@ class UsersController < ApplicationController
     else
       render 'new'
     end
+    Api.new.call(@user.name)
   end 
 
 private
