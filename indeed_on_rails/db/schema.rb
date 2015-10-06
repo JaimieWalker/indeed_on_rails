@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20151005202100) do
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "location"
+    t.string   "languages"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

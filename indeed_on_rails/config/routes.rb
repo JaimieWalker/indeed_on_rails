@@ -1,4 +1,16 @@
 Rails.application.routes.draw do
+  # root 'user#new' => display the form 
+  # and them when I click on the submit button 
+  root 'users#new'
+  
+  resources :users
+
+  # root 'user#create'
+
+  # post 'user/create'
+
+  # resources :search
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
