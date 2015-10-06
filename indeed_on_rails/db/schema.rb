@@ -37,19 +37,18 @@ ActiveRecord::Schema.define(version: 20151005202100) do
   end
 
   create_table "user_languages", force: :cascade do |t|
-    t.integer  "user_id_id"
-    t.integer  "language_id_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.integer  "user_id"
+    t.integer  "language_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
-  add_index "user_languages", ["language_id_id"], name: "index_user_languages_on_language_id_id"
-  add_index "user_languages", ["user_id_id"], name: "index_user_languages_on_user_id_id"
+  add_index "user_languages", ["language_id"], name: "index_user_languages_on_language_id"
+  add_index "user_languages", ["user_id"], name: "index_user_languages_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "location"
-    t.string   "languages"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

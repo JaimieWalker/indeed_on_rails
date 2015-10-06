@@ -6,8 +6,13 @@ class UsersController < ApplicationController
   end
   
   def create
-    # byebug
-    @user = User.create(user_params)
+    @user = User.create(name: user_params[:name], location: user_params[:location])
+    
+    user_params[:languages].split(",").each do |lang| 
+      @language = Language.find_or_create_by(name: lang.strip.capitalize)
+      @user.languages << @language
+    end
+    
     if @user.save
       redirect_to @user
     else
@@ -18,7 +23,7 @@ class UsersController < ApplicationController
 private
 
   def user_params
-    params.require(:user).permit(:name,:location,:languages => [])
+    params.require(:user).permit(:name, :location, :languages)
   end
 
 end
