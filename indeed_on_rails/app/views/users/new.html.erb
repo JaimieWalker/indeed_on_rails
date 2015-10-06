@@ -1,0 +1,15 @@
+<h1>Create User </h1>
+  <%= form_for(@user) do |f| %> 
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <br/>
+    <%= f.label :location %>
+    <%= f.text_field :location%>
+    <br/>
+    <%= f.label :languages%>
+    <%= f.text_field :languages%>
+    <br/>
+    <%= f.submit %>
+  <% end %>
+
+
