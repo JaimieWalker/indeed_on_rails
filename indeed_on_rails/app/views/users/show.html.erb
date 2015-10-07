@@ -1,8 +1,25 @@
+<center>
+  <h2>Here are the listings we found, <%= @name %></h2><br>
+</center>
 <% @jobs.each do |x| %>
-<%= x.job_title %><br>
-<%= x.company %><br>
-<%= x.formatted_location %><br>
-<%= x.date %><br>
-<%= x.url %><br>
-<%= simple_format(x.description)%><br>
+      <h1> <%= x.job_title %></h1>
+      <h3>Company: <%= x.company %></h3>
+      <h2> Where Are They Located?</h2>
+        <ul>
+          <li>
+            <h4><%= x.formatted_location %></h4>
+          </li>
+        </ul>
+      <h2> Date Posted</h2>
+        <ul>
+          <li>
+            <h4><%= x.date %></h4>
+          </li>
+        </ul>
+      <div class="well bs-component">
+        <h2> Overview</h2>
+          <%= simple_format(x.description)%>
+        <h2> Website</h2>
+          <h4><a href= "<%= x.url %>">Think This Job Is For You?</a></h4>
+      </div>
 <% end %>

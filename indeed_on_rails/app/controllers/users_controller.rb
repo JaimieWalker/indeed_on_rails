@@ -9,26 +9,27 @@ class UsersController < ApplicationController
 
   def create
 
-    fresh_start 
+    fresh_start
 
     @user = User.create(name: user_params[:name], location: user_params[:location])
-    
-    user_params[:languages].split(",").each do |lang| 
+
+    user_params[:languages].split(",").each do |lang|
       @language = Language.find_or_create_by(name: lang.strip.capitalize)
       @user.languages << @language
     end
-    
+
     if @user.save
       redirect_to @user
     else
       render 'new'
     end
     Api.create_job(@user)
-  end 
+  end
 
-  def show 
+  def show
     @jobs = Job.all
-  end 
+    @name = User.first.name
+  end
 
 private
 
