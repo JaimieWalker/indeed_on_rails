@@ -27,7 +27,7 @@ class UsersController < ApplicationController
   end 
 
   def show 
-    @jobs = Jobs.all
+    @jobs = Job.all
   end 
 
 private
