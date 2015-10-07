@@ -2,24 +2,31 @@
   <h2>Here are the listings we found, <%= @name %></h2><br>
 </center>
 <% @jobs.each do |x| %>
-      <h1> <%= x.job_title %></h1>
-      <h3>Company: <%= x.company %></h3>
-      <h2> Where Are They Located?</h2>
-        <ul>
-          <li>
-            <h4><%= x.formatted_location %></h4>
-          </li>
-        </ul>
-      <h2> Date Posted</h2>
-        <ul>
-          <li>
-            <h4><%= x.date %></h4>
-          </li>
-        </ul>
-      <div class="well bs-component">
+<body>
+    <div id="main-container" class="container-fluid">
+      <div class="row">
+        <div id="sidebar" class="col-xs-3">
+         <h3> <%= x.job_title %></h3><br>
+      <h4>Company:</h4> 
+      <h5><%= x.company %></h5><br>
+      <h4> Where Are They Located?</h4>
+            <h5><%= x.formatted_location %></h5><br>
+      <h4> Date Posted:</h4>
+            <h5><%= x.date %></h5><br> 
+        <h4> Website</h4>
+          <h5><a href= "<%= x.url %>">Think This Job Is For You?</a></h5>
+        </div>
+        <div id="main-content" class="col-xs-9">
+                <div class="well bs-component">
         <h2> Overview</h2>
           <%= simple_format(x.description)%>
-        <h2> Website</h2>
-          <h4><a href= "<%= x.url %>">Think This Job Is For You?</a></h4>
       </div>
+        </div>
+      </div>
+    </div>
+  </body>
 <% end %>
+<footer>
+    <center> Copyright © Jeremy Delvalle, Brian Mesa, Jaimie Walker, Zalman Blau. 
+    </center>
+  </footer>
