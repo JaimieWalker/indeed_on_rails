@@ -6,6 +6,9 @@ class UsersController < ApplicationController
   end
   
   def create
+
+    fresh_start 
+    binding.pry
     @user = User.create(name: user_params[:name], location: user_params[:location])
     
     user_params[:languages].split(",").each do |lang| 
@@ -18,13 +21,22 @@ class UsersController < ApplicationController
     else
       render 'new'
     end
-    Api.new.call(@user.name)
+    Api.create_job(@user)
+    binding.pry
   end 
 
 private
 
   def user_params
     params.require(:user).permit(:name, :location, :languages)
+  end
+
+  def fresh_start
+    Job.delete_all
+    Language.delete_all
+    User.delete_all
+    UserLanguage.delete_all
+    JobLanguage.delete_all
   end
 
 end

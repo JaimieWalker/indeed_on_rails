@@ -1,9 +1,8 @@
+require 'open-uri'
 class Scraper
 
-def url_scraper
-descriptions = []
-	Api.new.job_url.each do |url|
-		@doc = Nokogiri::HTML(open('#{url}')).css('table tr td.snip #job_summary').text
-		descriptions << simple_format(@doc)
-	end
+  def self.description(url)
+  	@doc = Nokogiri::HTML(open(url)).css('table tr td.snip #job_summary').text
+  end
+
 end

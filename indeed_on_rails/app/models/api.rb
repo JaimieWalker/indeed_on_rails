@@ -2,20 +2,37 @@ require 'open-uri'
 
 class Api 
 
+  def self.create_job(user_object)
+    api = Api.new(user_object)
+    api.fetch
+
+    api.hash["results"].each do |job|
+
+      job_hash = {
+        job_title: job["jobtitle"],
+        company: job["company"],
+        formatted_location: job["formattedLocation"],
+        date: job["date"],
+        url: job["url"],
+        description: Scraper.description(job["url"])
+      }
+      @job = Job.create(job_hash)
+    end
+    
+  end
+
   attr_accessor :user
   attr_reader :hash
 
-  def call(user_name)
-    @user = User.find_by(name: user_name)
-    fetch
-    binding.pry
+  def initialize(user_object) 
+    @user = user_object
   end
 
   def fetch
-    @hash = JSON.parse(File.read(open(url)))
+    @hash = JSON.parse(File.read(open(api_url)))
   end
 
-  def url
+  def api_url
     static ||= "http://api.indeed.com/ads/apisearch?publisher=3070567809660386&q="
     quary ||= "#{languages}&l=#{location}&sort="
     misc ||= "&radius=&st=&jt=&start=&limit=&fromage=&filter=&latlong=1&co=us&chnl=&userip=1.2.3.4&useragent=Mozilla/%2F4.0%28Firefox%29&v=2&format=json"
@@ -32,15 +49,6 @@ class Api
     end
 
     result ||= @languages.join("%2C+").gsub(" ", "+")
-  end
-
-
-  def job_url
-    job_array = []
-    hash["results"].each do |whatever|
-      job_array << whatever["url"]
-    end
-    job_array
   end
 
 end

@@ -21,8 +21,9 @@ ActiveRecord::Schema.define(version: 20151005202100) do
   end
 
   create_table "jobs", force: :cascade do |t|
-    t.string   "jobtitle"
+    t.string   "job_title"
     t.string   "company"
+    t.text     "description"
     t.string   "formatted_location"
     t.string   "date"
     t.string   "url"
