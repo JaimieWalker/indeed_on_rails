@@ -4,11 +4,13 @@ class UsersController < ApplicationController
   def new
     @user = User.new
   end
-  
+
+
+
   def create
 
     fresh_start 
-    binding.pry
+
     @user = User.create(name: user_params[:name], location: user_params[:location])
     
     user_params[:languages].split(",").each do |lang| 
@@ -22,7 +24,10 @@ class UsersController < ApplicationController
       render 'new'
     end
     Api.create_job(@user)
-    binding.pry
+  end 
+
+  def show 
+    @jobs = Jobs.all
   end 
 
 private
