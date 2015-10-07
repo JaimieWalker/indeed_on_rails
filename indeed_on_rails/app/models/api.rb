@@ -34,4 +34,13 @@ class Api
     result ||= @languages.join("%2C+").gsub(" ", "+")
   end
 
+
+  def job_url
+    job_array = []
+    hash["results"].each do |whatever|
+      job_array << whatever["url"]
+    end
+    job_array
+  end
+
 end
