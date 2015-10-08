@@ -16,19 +16,15 @@ class UsersController < ApplicationController
     user_params[:languages].split(",").each do |lang|
       @language = Language.find_or_create_by(name: lang.strip.capitalize)
       @user.languages << @language
+      Api.create_job(@user)
     end
-
+    
     if @user.save
-      redirect_to @user
+      redirect_to :controller => "jobs", :action => "index", :name => @user.name
     else
       render 'new'
     end
-    Api.create_job(@user)
-  end
 
-  def show
-    @jobs = Job.all
-    @name = User.first.name
   end
 
 private

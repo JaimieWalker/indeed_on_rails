@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   root 'users#new'
   
   resources :users
+  resources :jobs
+
 
   # root 'user#create'
 
