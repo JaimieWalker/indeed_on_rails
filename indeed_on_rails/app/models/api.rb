@@ -2,7 +2,7 @@ require 'open-uri'
 
 class Api 
 
-  def self.create_job(user_object)
+  def self.create_jobs(user_object)
     api = Api.new(user_object)
     api.fetch
 
@@ -14,9 +14,18 @@ class Api
         formatted_location: job["formattedLocation"],
         date: job["date"],
         url: job["url"],
-        description: Scraper.description(job["url"])
+        description: paragraph = Scraper.description(job["url"])
       }
+
       @job = Job.create(job_hash)
+
+      @languages = SkillGap.new(paragraph).find_languages
+
+      @languages.each do |lang|
+        @job.languages << Language.find_or_create_by(name: lang)
+      end
+
+      @job.save 
     end
     
   end

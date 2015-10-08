@@ -1,17 +1,16 @@
 class SkillGap
 
-  def initialize(paragraph, user)
-    @paragraph = paragraph
-    @user = user
+  def initialize(paragraph)
+    @paragraph = paragraph.gsub(".", "").gsub("/", "").gsub(".", "").downcase
   end
 
-  attr_accessor :paragraph, :user
+  attr_accessor :paragraph
 
   @@language_hash = {
       "java" => "Java",
-     " c" => "C",
+     " c " => "C",
       "c++" => "C++",
-      "c#" => "C#", 
+      "c#" => "C#",
       "python" => "Python", 
       "php" => "PHP", 
       "visaul basic" => "Visaul Basic",
@@ -25,7 +24,7 @@ class SkillGap
       "sql" => "SQL",
       "pascal" => "Pascal",
       "openedge" => "OpenEdge",
-      " r" => "R"
+      " r " => "R"
     }
 
   @@language_keys = @@language_hash.keys
@@ -41,9 +40,10 @@ class SkillGap
   def speed_test(rounds)
     Benchmark.measure do 
       rounds.times do 
-        SkillGap.new("hello, c,", "zalman").find_languages
+        find_languages
       end
     end
   end
+
 
 end

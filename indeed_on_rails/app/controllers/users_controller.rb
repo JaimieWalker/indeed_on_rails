@@ -1,14 +1,10 @@
 class UsersController < ApplicationController
-  #Need to create form for new user and languages
 
   def new
     @user = User.new
   end
 
-
-
   def create
-
     fresh_start 
 
     @user = User.create(name: user_params[:name], location: user_params[:location])
@@ -23,7 +19,7 @@ class UsersController < ApplicationController
     else
       render 'new'
     end
-    Api.create_job(@user)
+    Api.create_jobs(@user)
   end 
 
   def show 
