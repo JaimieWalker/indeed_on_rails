@@ -6,22 +6,22 @@ class UsersController < ApplicationController
 
   def create
     fresh_start 
-
+    # binding.pry
     @user = User.create(name: user_params[:name], location: user_params[:location])
-
+    binding.pry
     user_params[:languages].split(",").each do |lang|
       @language = Language.find_or_create_by(name: lang.strip.capitalize)
       @user.languages << @language
-      Api.create_jobs(@user)
+
     end
-    
+
+    Api.create_jobs(@user)
+    binding.pry
     if @user.save
       redirect_to :controller => "jobs", :action => "index", :name => @user.name
     else
       render 'new'
     end
-    
-    Api.create_jobs(@user)
   end 
 
 private

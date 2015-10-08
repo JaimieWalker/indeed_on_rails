@@ -14,7 +14,7 @@ class Api
         formatted_location: job["formattedLocation"],
         date: job["date"],
         url: job["url"],
-        description: paragraph = Scraper.description(job["url"])
+        description: paragraph = Scraper.new(job["url"]).fetch #Scraper.description(job["url"])
       }
 
       @job = Job.create(job_hash)
@@ -23,7 +23,7 @@ class Api
 
       @languages.each do |lang|
         @job.languages << Language.find_or_create_by(name: lang)
-      end
+      end 
 
       @job.save 
     end

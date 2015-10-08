@@ -13,11 +13,12 @@ class Scraper
   end
 
   def fetch
-    @doc = Nokogiri::HTML(open(url)).css('table tr td.snip #job_summary').children
+   # @doc = Nokogiri::HTML(open(url)).css('table tr td.snip #job_summary').children
+    @doc = Nokogiri::HTML(open(url)).css('table tr td.snip #job_summary').text
   end
 
   def to_text
-    fetch.children.map {|e| e.text.gsub(/\n/, " ")}
+    fetch.map {|e| e.text.gsub(/\n/, " ")}
   end
 
   def formatted_text
