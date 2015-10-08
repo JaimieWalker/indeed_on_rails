@@ -7,14 +7,17 @@
       <div class="row">
         <div id="sidebar" class="col-xs-3">
          <h3> <%= x.job_title %></h3><br>
-      <h4>Company:</h4> 
+      <h4>Company:</h4>
       <h5><%= x.company %></h5><br>
       <h4> Where Are They Located?</h4>
             <h5><%= x.formatted_location %></h5><br>
       <h4> Date Posted:</h4>
-            <h5><%= x.date %></h5><br> 
+            <h5><%= x.date %></h5><br>
         <h4> Website</h4>
-          <h5><a href= "<%= x.url %>">Think This Job Is For You?</a></h5>
+          <h5><a href= "<%= x.url %>" target="_blank">Think This Job Is For You?</a></h5>
+
+        <a href="mailto:?subject=Check%20out%20this%20job%20listing!&amp;body=You%20should%20check%20this%20out.%20Sounds%20like%20something%20you'd%20want%20to%20be%20a%20part%20of%20-%20Indeed%20On%20Rails%0A%0A<%= x.url %>">E-Mail This Listing</a>
+
         </div>
         <div id="main-content" class="col-xs-9">
                 <div class="well bs-component">
@@ -27,6 +30,6 @@
   </body>
 <% end %>
 <footer>
-    <center> Copyright © Jeremy Delvalle, Brian Mesa, Jaimie Walker, Zalman Blau. 
+    <center> Copyright © Jeremy Delvalle, Brian Mesa, Jaimie Walker, Zalman Blau.
     </center>
   </footer>
