@@ -1,13 +1,36 @@
 require 'open-uri'
 
 class Api
+  attr_accessor :my_languages
+  attr_reader :hash
 
-  def self.create_job(user_object)
-    api = Api.new(user_object)
-    api.fetch
+  def initialize(language_string,location)
+    @my_languages = language_string
+    @my_location = location
+    @hash = JSON.load(open(api_url))  
+  end
 
-    api.hash["results"].each do |job|
+  def api_url
+    #This is where figora would be
+    static = "http://api.indeed.com/ads/apisearch?publisher=3070567809660386&q="
+    query = "#{languages}&l=#{location}&sort="
+    misc = "&radius=&st=&jt=&start=&limit=30&fromage=&filter=&latlong=1&co=us&chnl=&userip&useragent&format=json&v=2"
+    "#{static}#{query}#{misc}"
+  end
 
+  def location
+    @my_location.gsub(",", "%2C").gsub(" ", "+")
+    
+  end
+
+  def languages
+      my_languages.gsub("#","%23").gsub("+", "%2B").gsub(" ", "+").gsub(",","%2C+")
+  end
+
+  def create_job
+    
+    hash["results"].each do |job|
+      
       job_hash = {
         job_title: job["jobtitle"],
         company: job["company"],
@@ -18,37 +41,5 @@ class Api
       }
       @job = Job.create(job_hash)
     end
-
   end
-
-  attr_accessor :user
-  attr_reader :hash
-
-  def initialize(user_object)
-    @user = user_object
-  end
-
-  def fetch
-    @hash = JSON.parse(File.read(open(api_url)))
-  end
-
-  def api_url
-    static ||= "http://api.indeed.com/ads/apisearch?publisher=3070567809660386&q="
-    quary ||= "#{languages}&l=#{location}&sort="
-    misc ||= "&radius=&st=&jt=&start=&limit=30&fromage=&filter=&latlong=1&co=us&chnl=&userip=1.2.3.4&useragent=Mozilla/%2F4.0%28Firefox%29&v=2&format=json"
-    "#{static}#{quary}#{misc}"
-  end
-
-  def location
-    @location ||= user.location.gsub(",", "%2C").gsub(" ", "+")
-  end
-
-  def languages
-    @languages ||= user.languages.map do |lang|
-      lang.name.gsub("#","%23").gsub("+", "%2B")
-    end
-
-    result ||= @languages.join("%2C+").gsub(" ", "+")
-  end
-
 end

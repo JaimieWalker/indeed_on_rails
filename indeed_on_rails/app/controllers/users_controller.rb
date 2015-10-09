@@ -1,11 +1,7 @@
 class UsersController < ApplicationController
-  #Need to create form for new user and languages
-
   def new
     @user = User.new
   end
-
-
 
   def create
 
@@ -16,15 +12,14 @@ class UsersController < ApplicationController
     user_params[:languages].split(",").each do |lang|
       @language = Language.find_or_create_by(name: lang.strip.capitalize)
       @user.languages << @language
-      Api.create_job(@user)
     end
-    
+      api = Api.new(user_params[:languages],@user.location)
+      api.create_job
     if @user.save
       redirect_to :controller => "jobs", :action => "index", :name => @user.name
     else
       render 'new'
     end
-
   end
 
 private
