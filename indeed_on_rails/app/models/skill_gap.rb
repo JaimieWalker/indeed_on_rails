@@ -1,12 +1,12 @@
 class SkillGap
 
-  def initialize(paragraph)
-    @paragraph = paragraph.gsub(".", "").gsub("/", "").gsub(".", "").downcase
+  attr_reader :paragraph
+
+  def initialize(description)
+    @paragraph = description.gsub(".", "").gsub(",", "").gsub("/", "").downcase
   end
 
-  attr_accessor :paragraph
-
-  @@language_hash = {
+  @@language_hash ||= {
       "java" => "Java",
      " c " => "C",
       "c++" => "C++",
@@ -27,23 +27,20 @@ class SkillGap
       " r " => "R"
     }
 
-  @@language_keys = @@language_hash.keys
+  @@language_keys ||= @@language_hash.keys
 
 
   def find_languages
-    array = @@language_keys.select do |lang|
+    associated_languages = @@language_keys.select do |lang|
       paragraph.include?(lang)
     end
-    @@language_hash.values_at(*array)
+    @@language_hash.values_at(*associated_languages)
   end
 
   def speed_test(rounds)
     Benchmark.measure do 
-      rounds.times do 
-        find_languages
-      end
+      rounds.times { find_languages }
     end
   end
-
 
 end
