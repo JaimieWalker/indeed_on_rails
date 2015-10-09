@@ -1,5 +1,5 @@
 <center>
-  <h2>Here are the listings we found, <%= @name %></h2><br>
+  <h2>Here are the listings we found, <%= @name.capitalize %></h2><br>
 </center>
 <% @jobs.each do |x| %>
 <body>
@@ -22,8 +22,9 @@
         <div id="main-content" class="col-xs-9">
                 <div class="well bs-component">
         <h2> Languages You Need To Learn </h2>
-          <%(@)%>
-          <p>  </p>
+          <% all_languages = x.languages.map {|lang| lang.name} %>
+          <% known_languages = @user.languages.map {|lang| lang.name } %>
+          <%= (all_languages - known_languages).join(", ")%>
         <h2> Overview</h2>
           <%= simple_format(x.description)%>
       </div>
